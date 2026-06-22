@@ -1,0 +1,48 @@
+{
+  "disciplines": [
+    {
+      "category": "PISTOL",
+      "events": [
+        "10m Air Pistol – Men",
+        "10m Air Pistol – Women",
+        "10m Air Pistol Mixed Team",
+        "25m Pistol – Women (Sport Pistol)",
+        "25m Rapid Fire Pistol – Men",
+        "25m Standard Pistol – Men",
+        "50m Pistol – Men (Free Pistol)"
+      ]
+    },
+    {
+      "category": "RIFLE",
+      "events": [
+        "10m Air Rifle – Men",
+        "10m Air Rifle – Women",
+        "10m Air Rifle Mixed Team",
+        "50m Rifle 3 Positions – Men (3P)",
+        "50m Rifle 3 Positions – Women (3P)",
+        "50m Rifle Prone – Men",
+        "50m Rifle Prone – Women"
+      ]
+    },
+    {
+      "category": "SHOTGUN",
+      "events": [
+        "Trap – Men",
+        "Trap – Women",
+        "Trap Mixed Team",
+        "Double Trap – Men",
+        "Skeet – Men",
+        "Skeet – Women",
+        "Skeet Mixed Team"
+      ]
+    },
+    {
+      "category": "RUNNING TARGET",
+      "events": [
+        "10m Running Target – Men",
+        "10m Running Target – Women",
+        "10m Running Target Mixed"
+      ]
+    }
+  ]
+}
