@@ -1,8 +1,8 @@
 # Triggr — The Shooters OS
 
-A training companion for ISSF pistol and rifle shooters: structured sessions, shot logging, a match-format simulator, and progress history. Built with Expo (React Native + Web) so the same codebase ships to web, iOS, and Android.
+A training companion for ISSF and NRAI pistol and rifle shooters: shot logging, a match-format timer with spoken commands, score trends, and a profile/settings vertical. Built with Expo (React Native + Web) so the same codebase ships to web, iOS, and Android.
 
-Product context and architecture decisions live in the Obsidian vault (`Triggr.pro/`), not in this repo.
+Product context and architecture decisions also live in the Obsidian vault (`Triggr.pro/`); this repo is the code plus reference docs (`docs/`) that inform it.
 
 ## Get started
 
@@ -12,6 +12,8 @@ Product context and architecture decisions live in the Obsidian vault (`Triggr.p
    cp .env.example .env
    # fill in EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY
    ```
+
+   See [SETUP.md](SETUP.md) for creating the Supabase project. The app works fully without this — data stays on-device until you connect an account.
 
 2. Install dependencies
 
@@ -30,7 +32,12 @@ Product context and architecture decisions live in the Obsidian vault (`Triggr.p
 ## Structure
 
 - `src/app/` — screens, file-based routing via Expo Router
-  - `(tabs)/` — Train, Simulator, History, Profile
-- `src/lib/supabase.ts` — Supabase client
-- `src/types/database.ts` — hand-written types matching the Supabase schema (regenerate once a project exists)
-- `Brand/`, `Context/` — logo and reference material
+  - `(tabs)/` — Home, Log, Timer, Trends, Profile
+  - `welcome.tsx`, `onboarding.tsx` — auth + first-run setup
+  - `session/`, `timer/` — full-screen logging and timer-run flows
+- `src/constants/events.ts` — the event/format registry (pistol + rifle) driving scoring and timer sequences; add a format here to support it everywhere
+- `src/providers/` — theme (dark/light), auth, and app-state (local-first + Supabase sync) context
+- `src/lib/supabase.ts`, `src/lib/sync.ts` — Supabase client and best-effort cloud sync
+- `supabase/migrations/` — SQL schema for the Supabase project
+- `docs/` — ISSF/NRAI event format reference and the product roadmap (V1–V4)
+- `Brand/`, `Context/`, `Competitor analysis/` — logo and research material
