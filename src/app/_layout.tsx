@@ -22,6 +22,7 @@ function ThemedApp() {
         <Stack.Screen name="onboarding" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="session/log" options={{ gestureEnabled: false }} />
+        <Stack.Screen name="photo-log" />
         <Stack.Screen name="session/[id]" />
         <Stack.Screen name="timer/run" options={{ gestureEnabled: false }} />
       </Stack>
