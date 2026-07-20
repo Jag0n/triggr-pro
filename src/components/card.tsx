@@ -6,7 +6,7 @@ import { useTheme } from '@/providers/theme';
 
 export interface CardProps extends ViewProps {
   onPress?: () => void;
-  tone?: 'default' | 'accent' | 'alt';
+  tone?: 'default' | 'accent' | 'alt' | 'solid';
   padding?: keyof typeof Spacing;
 }
 
@@ -17,6 +17,7 @@ export function Card({ onPress, tone = 'default', padding = 'three', style, ...r
     default: { backgroundColor: colors.surface, borderColor: colors.border },
     alt: { backgroundColor: colors.surfaceAlt, borderColor: 'transparent' },
     accent: { backgroundColor: colors.accentSoft, borderColor: 'transparent' },
+    solid: { backgroundColor: colors.accent, borderColor: 'transparent' },
   }[tone];
 
   const inner = (
@@ -34,7 +35,10 @@ export function Card({ onPress, tone = 'default', padding = 'three', style, ...r
         tapFeedback();
         onPress();
       }}
-      style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }, style]}
+      style={({ pressed }) => [
+        { opacity: pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] },
+        style,
+      ]}
     >
       {inner}
     </Pressable>

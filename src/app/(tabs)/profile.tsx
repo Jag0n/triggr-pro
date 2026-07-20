@@ -7,6 +7,7 @@ import { AppText } from '@/components/app-text';
 import { Card } from '@/components/card';
 import { Screen } from '@/components/screen';
 import { Segmented } from '@/components/segmented';
+import { ThemePicker } from '@/components/theme-picker';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { eventsForDiscipline, getEvent, type Discipline } from '@/constants/events';
 import { Radius, Spacing } from '@/constants/theme';
@@ -179,17 +180,26 @@ export default function ProfileScreen() {
       {/* Appearance */}
       <AppText variant="heading">Appearance</AppText>
       <Card>
-        <Segmented
-          options={
-            [
-              { value: 'system', label: 'System' },
-              { value: 'light', label: 'Light' },
-              { value: 'dark', label: 'Dark' },
-            ] as { value: ThemeMode; label: string }[]
-          }
-          value={mode}
-          onChange={setMode}
-        />
+        <View style={styles.settingBlock}>
+          <AppText variant="label" color="secondary">
+            THEME
+          </AppText>
+          <ThemePicker />
+          <AppText variant="label" color="secondary" style={styles.blockGap}>
+            MODE
+          </AppText>
+          <Segmented
+            options={
+              [
+                { value: 'system', label: 'System' },
+                { value: 'light', label: 'Light' },
+                { value: 'dark', label: 'Dark' },
+              ] as { value: ThemeMode; label: string }[]
+            }
+            value={mode}
+            onChange={setMode}
+          />
+        </View>
       </Card>
 
       {/* Account & data */}

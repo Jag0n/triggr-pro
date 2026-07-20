@@ -20,7 +20,12 @@ export default function LogScreen() {
   const [discipline, setDiscipline] = useState<Discipline>(profile?.discipline ?? 'pistol');
   const [kind, setKind] = useState<SessionKind>('practice');
 
-  const events = EVENTS.filter((e) => e.discipline === discipline);
+  // Primary event first — it's the one you reach for most.
+  const events = EVENTS.filter((e) => e.discipline === discipline).sort((a, b) => {
+    const ap = a.id === profile?.primaryEventId ? 0 : 1;
+    const bp = b.id === profile?.primaryEventId ? 0 : 1;
+    return ap - bp;
+  });
 
   function start(eventId: string) {
     router.push({ pathname: '/session/log', params: { event: eventId, kind } });
@@ -45,14 +50,34 @@ export default function LogScreen() {
         onChange={setKind}
       />
 
+      <Card onPress={() => router.push('/photo-log')}>
+        <View style={styles.row}>
+          <View style={[styles.badge, { backgroundColor: colors.accentSoft }]}>
+            <Ionicons name="camera" size={22} color={colors.accent} />
+          </View>
+          <View style={styles.info}>
+            <AppText variant="heading">Photo log</AppText>
+            <AppText variant="caption" color="secondary">
+              Snap a paper target — shots are scored for you
+            </AppText>
+          </View>
+          <Ionicons name="chevron-forward" size={20} color={colors.textFaint} />
+        </View>
+      </Card>
+
       <View style={styles.list}>
         {events.map((e) => {
           const isPrimary = profile?.primaryEventId === e.id;
           return (
-            <Card key={e.id} onPress={() => start(e.id)}>
+            <Card key={e.id} tone={isPrimary ? 'accent' : 'default'} onPress={() => start(e.id)}>
               <View style={styles.row}>
-                <View style={[styles.badge, { backgroundColor: colors.accentSoft }]}>
-                  <AppText variant="label" color="accent">
+                <View
+                  style={[
+                    styles.badge,
+                    { backgroundColor: isPrimary ? colors.accent : colors.accentSoft },
+                  ]}
+                >
+                  <AppText variant="label" color={isPrimary ? 'onAccent' : 'accent'}>
                     {e.distance}
                   </AppText>
                 </View>
