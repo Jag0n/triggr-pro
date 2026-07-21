@@ -36,7 +36,8 @@ Product context and architecture decisions also live in the Obsidian vault (`Tri
   - `welcome.tsx`, `onboarding.tsx` — auth + first-run setup
   - `session/`, `timer/` — full-screen logging and timer-run flows
 - `src/constants/events.ts` — the event/format registry (pistol + rifle) driving scoring and timer sequences; add a format here to support it everywhere
-- `src/providers/` — theme (dark/light), auth, and app-state (local-first + Supabase sync) context
+- `src/providers/` — theme (5 selectable color themes × dark/light, picked in Profile → Appearance), auth, and app-state (local-first + Supabase sync) context
+- `src/constants/theme.ts` — the theme registry (Ember, Ocean, Ranger, Podium, Violet); add a theme here and it appears in the picker automatically
 - `src/lib/supabase.ts`, `src/lib/sync.ts` — Supabase client and best-effort cloud sync
 - `supabase/migrations/` — SQL schema for the Supabase project
 - `docs/` — ISSF/NRAI event format reference and the product roadmap (V1–V4)

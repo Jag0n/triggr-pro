@@ -60,7 +60,8 @@ export function Button({
         {
           backgroundColor: bg,
           height,
-          opacity: disabled ? 0.45 : pressed ? 0.75 : 1,
+          opacity: disabled ? 0.45 : pressed ? 0.8 : 1,
+          transform: [{ scale: pressed && !disabled ? 0.97 : 1 }],
         },
         style,
       ]}

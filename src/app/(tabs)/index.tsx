@@ -36,6 +36,7 @@ export default function HomeScreen() {
   const week = statsFor(thisWeek(sessions));
   const last = sessions[0];
   const lastEvent = last ? getEvent(last.eventId) : undefined;
+  const primaryEvent = profile ? getEvent(profile.primaryEventId) : undefined;
 
   const allTimeBest = sessions.reduce<{ score: number; eventId: string } | null>((acc, s) => {
     const b = bestSeries(s);
@@ -54,19 +55,50 @@ export default function HomeScreen() {
         {profile?.name ?? 'Shooter'}
       </AppText>
 
+      {/* Quick start — one tap onto the line with your event */}
+      {primaryEvent ? (
+        <Card
+          tone="solid"
+          padding="four"
+          onPress={() =>
+            router.push({
+              pathname: '/session/log',
+              params: { event: primaryEvent.id, kind: 'practice' },
+            })
+          }
+        >
+          <View style={styles.heroRow}>
+            <View style={styles.heroInfo}>
+              <AppText variant="label" style={{ color: colors.onAccent, opacity: 0.75 }}>
+                QUICK START
+              </AppText>
+              <AppText variant="heading" style={{ color: colors.onAccent, fontSize: 21 }}>
+                {primaryEvent.name}
+              </AppText>
+              <AppText variant="caption" style={{ color: colors.onAccent, opacity: 0.75 }}>
+                Practice · {primaryEvent.seriesCount} × {primaryEvent.shotsPerSeries} shots
+              </AppText>
+            </View>
+            <View style={[styles.heroPlay, { backgroundColor: colors.onAccent }]}>
+              <Ionicons name="play" size={26} color={colors.accent} />
+            </View>
+          </View>
+        </Card>
+      ) : null}
+
       {/* Quick actions — thumb-first */}
       <View style={styles.quickRow}>
-        <Card tone="accent" style={styles.quickCard} onPress={() => router.push('/(tabs)/log')}>
-          <View style={[styles.quickIcon, { backgroundColor: colors.accent }]}>
-            <Ionicons name="disc" size={22} color={colors.onAccent} />
+        <Card tone="alt" style={styles.quickCard} onPress={() => router.push('/(tabs)/log')}>
+          <View style={[styles.quickIcon, { backgroundColor: colors.accentSoft }]}>
+            <Ionicons name="disc" size={22} color={colors.accent} />
           </View>
           <AppText variant="heading">Log shots</AppText>
           <AppText variant="caption" color="secondary">
-            Score a session
+            All events
           </AppText>
         </Card>
         <Card tone="alt" style={styles.quickCard} onPress={() => router.push('/(tabs)/timer')}>
-          <View style={[styles.quickIcon, { backgroundColor: colors.surface }]}>
+          <View style={[styles.quickIcon, { backgroundColor: colors.accentSoft }]}>
             <Ionicons name="timer" size={22} color={colors.accent} />
           </View>
           <AppText variant="heading">Match timer</AppText>
@@ -147,6 +179,15 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   name: { marginTop: -Spacing.three },
+  heroRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
+  heroInfo: { flex: 1, gap: 2 },
+  heroPlay: {
+    width: 52,
+    height: 52,
+    borderRadius: Radius.full,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   quickRow: { flexDirection: 'row', gap: Spacing.two },
   quickCard: { flex: 1 },
   quickIcon: {
